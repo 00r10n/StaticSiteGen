@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-python3 -m unittest discover -s unittests
+python3 -m unittest discover -s src
