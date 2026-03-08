@@ -14,8 +14,8 @@ class TestTextNode(unittest.TestCase):
         self.assertNotEqual(node,node2)
 
     def test_neq_text(self):
-        node = TextNode("a", TextType.PLAIN)
-        node2 = TextNode("b", TextType.PLAIN)
+        node = TextNode("a", TextType.TEXT)
+        node2 = TextNode("b", TextType.TEXT)
         self.assertNotEqual(node, node2)
 
     def test_neq_text_type(self):
