@@ -1,6 +1,6 @@
 import unittest
 from enum import Enum
-from blocktype import BlockType, block_to_block_type
+from blocktype import BlockType, block_to_block_type, markdown_to_blocks
 
 
 class TestBlockToBlockType(unittest.TestCase):
@@ -43,6 +43,28 @@ class TestBlockToBlockType(unittest.TestCase):
         # Block with mixed lines (should not match any special type)
         block = "> This is a quote\n- This is a list item"
         self.assertEqual(block_to_block_type(block), BlockType.PARAGRAPH)
+
+    def test_markdown_to_blocks(self):
+        md = """
+This is **bolded** paragraph
+
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+- This is a list
+- with items
+"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(
+            blocks,
+            [
+                "This is **bolded** paragraph",
+                "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
+                "- This is a list\n- with items",
+            ],
+        )
+
+
 
 if __name__ == "__main__":
     unittest.main()

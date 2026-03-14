@@ -11,6 +11,12 @@ class BlockType(Enum):
     UNORDERED_LIST = "UNORDERED_LIST"
     ORDERED_LIST = "ORDERED_LIST"
 
+def markdown_to_blocks(markdown):
+    blocks = markdown.split("\n\n")
+    blocks = [i.strip() for i in blocks if not i == ""]
+    return blocks
+    
+
 def block_to_block_type(block):
 
     if re.match(r"#{1,6} ", block):
