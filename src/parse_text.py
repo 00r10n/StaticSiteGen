@@ -9,6 +9,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type): # old_nodes = list o
     for old in old_nodes:
         if old.text_type != TextType.TEXT:
             new_nodes.append(old)
+            continue
         if not old.text.count(delimiter)%2 == 0:
             raise Exception("uneaven occurences of Dilimiter. Every opener needs one Closer")
         new_texts = old.text.split(delimiter)
@@ -70,4 +71,12 @@ def extract_markdown_images(text):
 def extract_markdown_links(text):
     links = re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
     return links
+
+def text_to_textnodes(text):
+    deimaged = split_nodes_image([TextNode(text, TextType.TEXT)])
+    delinked = split_nodes_link(deimaged)
+    debolded = split_nodes_delimiter(delinked, "**", TextType.BOLD)
+    deitaliced = split_nodes_delimiter(debolded, "_", TextType.ITALIC)
+    decoded = split_nodes_delimiter(deitaliced, "`", TextType.CODE)
+    return decoded
 
