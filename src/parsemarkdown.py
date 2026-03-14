@@ -1,5 +1,5 @@
 from blocktype import markdown_to_blocks, block_to_block_type, BlockType
-from main import text_node_to_html_node
+from textnode import text_node_to_html_node
 from parse_text import text_to_textnodes
 from htmlnode import ParentNode, LeafNode
 
