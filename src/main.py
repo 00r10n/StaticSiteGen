@@ -40,7 +40,8 @@ def generate_page(from_path, template_path, dest_path, basepath):
         template = template_file.read()
     htmlnodes = markdown_to_html_node(raw_md)
     html_text = htmlnodes.to_html()
-    title = LeafNode("h1", extract_title(raw_md)).to_html()
+    title = extract_title(raw_md)
+
     html_site = template.replace("{{ Title }}", title).replace("{{ Content }}", html_text)
     html_site = html_site.replace('href="/', f'href="{basepath}').replace('src="/', f'src="{basepath}')
     if not os.path.isdir(os.path.dirname(dest_path)):
