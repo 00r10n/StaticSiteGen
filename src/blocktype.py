@@ -13,7 +13,7 @@ class BlockType(Enum):
 
 def markdown_to_blocks(markdown):
     blocks = markdown.split("\n\n")
-    blocks = [i.strip() for i in blocks if not i == ""]
+    blocks = [i.strip() for i in blocks if i]
     return blocks
     
 
