@@ -5,7 +5,7 @@ from htmlnode import ParentNode, LeafNode
 from parsemarkdown import markdown_to_html_node, extract_title
 def main():
     filecopy("./static", "./public")
-    generate_page("content/index.md", "template.html" , "public/index.html")
+    generate_pages_recursive("content", "template.html" , "public")
     
 def filecopy(source,destination):
     if not os.path.isdir(source) or not os.path.isdir(destination):
@@ -41,5 +41,17 @@ def generate_page(from_path, template_path, dest_path):
         os.makedirs(os.path.dirname(dest_path))
     with open(dest_path, "w") as htmlfile:
         htmlfile.write(html_site)
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    for entity in os.listdir(dir_path_content):
+        subj = os.path.join(dir_path_content,entity)
+        if os.path.isfile(subj):
+            mirror = os.path.join(dest_dir_path, f"{entity[:-3]}.html")
+            generate_page(subj, template_path, mirror)
+        if os.path.isdir(subj):
+            mirror = os.path.join(dest_dir_path, entity)
+            os.mkdir(mirror)
+            generate_pages_recursive(subj, template_path, mirror)
+
 
 main()
